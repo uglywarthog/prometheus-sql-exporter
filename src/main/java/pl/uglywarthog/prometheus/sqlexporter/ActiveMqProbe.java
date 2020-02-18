@@ -15,5 +15,11 @@ public class ActiveMqProbe implements MeterBinder {
                 .baseUnit("test_base_unit")
                 .tag("tag", "test-tag")
                 .register(meterRegistry);
+
+        Gauge.builder("test", () -> 13)
+                .description("test description 2")
+                .baseUnit("test_base_unit_2")
+                .tag("tag2", "test-tag2")
+                .register(meterRegistry);
     }
 }
