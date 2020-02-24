@@ -1,0 +1,38 @@
+# Server configurations.
+server:
+  port: 9000
+
+# App config
+spring:
+  main:
+    banner-mode: off
+
+# Actuator config
+management:
+  endpoints:
+    web:
+      base-path: /
+      path-mapping:
+        prometheus: prometheus
+      exposure:
+        include: prometheus
+  endpoint:
+    prometheus:
+      enabled: true
+  metrics:
+    enable:
+      all: false
+      test: true
+
+sql-exporter.probes:
+  - name: test.test1
+    url: jdbc:h2:mem:testdb
+    user: sa
+    password:
+    query: select data from test where name = 'test2'
+
+  - name: test.test2
+    url: jdbc:h2:mem:testdb
+    user: sa
+    password:
+    query: select data from test where name = 'test1'

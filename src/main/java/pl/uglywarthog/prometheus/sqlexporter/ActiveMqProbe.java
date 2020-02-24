@@ -3,27 +3,31 @@ package pl.uglywarthog.prometheus.sqlexporter;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.binder.MeterBinder;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.stereotype.Component;
 
+import java.util.logging.Level;
+
 @Component
+@RequiredArgsConstructor
+@Log
 public class ActiveMqProbe implements MeterBinder {
+
+    private final ProbeProperties probes;
 
     @Override
     public void bindTo(MeterRegistry meterRegistry) {
-        DbUtil dbUtil = new DbUtil("jdbc:h2:mem:testdb", "sa", "");
-        JdbcQuery query1 = new JdbcQuery("select data from test where name = 'test1'", dbUtil);
-        JdbcQuery query2 = new JdbcQuery("select data from test where name = 'test2'", dbUtil);
+        probes.getProbes().forEach(probe -> setupProbe(probe, meterRegistry));
+    }
 
-        Gauge.builder("test", query1::get)
-                .description("test description")
-                .baseUnit("test_base_unit")
-                .tag("tag", "test-tag")
-                .register(meterRegistry);
+    private void setupProbe(Probe probe, MeterRegistry meterRegistry) {
+        log.log(Level.INFO, "Setting up probe {0}", probe.getName());
 
-        Gauge.builder("test", query2::get)
-                .description("test description 2")
-                .baseUnit("test_base_unit_2")
-                .tag("tag2", "test-tag2")
+        DbUtil dbUtil = new DbUtil(probe.getUrl(), probe.getUser(), probe.getPassword());
+        JdbcQuery query = new JdbcQuery(probe.getQuery(), dbUtil);
+
+        Gauge.builder(probe.getName(), query::get)
                 .register(meterRegistry);
     }
 }
