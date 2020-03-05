@@ -1,4 +1,4 @@
-package pl.uglywarthog.prometheus.sqlexporter;
+package pl.uglywarthog.prometheus.sqlexporter.properties;
 
 import lombok.Data;
 

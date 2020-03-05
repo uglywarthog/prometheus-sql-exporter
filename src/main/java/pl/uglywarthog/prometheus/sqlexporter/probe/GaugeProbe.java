@@ -1,4 +1,4 @@
-package pl.uglywarthog.prometheus.sqlexporter;
+package pl.uglywarthog.prometheus.sqlexporter.probe;
 
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -6,13 +6,16 @@ import io.micrometer.core.instrument.binder.MeterBinder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Component;
+import pl.uglywarthog.prometheus.sqlexporter.properties.Probe;
+import pl.uglywarthog.prometheus.sqlexporter.properties.ProbeProperties;
+import pl.uglywarthog.prometheus.sqlexporter.query.JdbcQuery;
 
 import java.util.logging.Level;
 
 @Component
 @RequiredArgsConstructor
 @Log
-public class ActiveMqProbe implements MeterBinder {
+public class GaugeProbe implements MeterBinder {
 
     private final ProbeProperties probes;
 
@@ -24,10 +27,7 @@ public class ActiveMqProbe implements MeterBinder {
     private void setupProbe(Probe probe, MeterRegistry meterRegistry) {
         log.log(Level.INFO, "Setting up probe {0}", probe.getName());
 
-        DbUtil dbUtil = new DbUtil(probe.getUrl(), probe.getUser(), probe.getPassword());
-        JdbcQuery query = new JdbcQuery(probe.getQuery(), dbUtil);
-
-        Gauge.builder(probe.getName(), query::get)
-                .register(meterRegistry);
+        JdbcQuery query = new JdbcQuery(probe.getUrl(), probe.getUser(), probe.getPassword(), probe.getQuery());
+        Gauge.builder(probe.getName(), query::get).register(meterRegistry);
     }
 }

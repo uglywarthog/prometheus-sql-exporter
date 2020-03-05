@@ -1,9 +1,10 @@
-package pl.uglywarthog.prometheus.sqlexporter;
+package pl.uglywarthog.prometheus.sqlexporter.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -11,6 +12,6 @@ import java.util.List;
 @ConfigurationProperties("sql-exporter")
 public class ProbeProperties {
 
-    private List<Probe> probes;
+    private List<Probe> probes = new ArrayList<>();
 
 }

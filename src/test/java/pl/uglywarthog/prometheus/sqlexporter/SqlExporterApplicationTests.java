@@ -1,13 +1,11 @@
 package pl.uglywarthog.prometheus.sqlexporter;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class SqlExporterApplicationTests {
+public class SqlExporterApplicationTests {
 
     @Test
-    void contextLoads() {
+    public void testApp() throws Exception {
+        SqlExporterApplication.main(new String[] {});
     }
-
 }
