@@ -1,3 +1,5 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=uglywarthog_prometheus-sql-exporter&metric=alert_status)](https://sonarcloud.io/dashboard?id=uglywarthog_prometheus-sql-exporter)
+
 # SQL Exporter for Prometheus
 This application is capable of executing queries via JDBC and exposing results as Prometheus feed.
 
