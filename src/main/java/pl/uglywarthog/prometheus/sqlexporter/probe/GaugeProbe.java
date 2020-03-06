@@ -28,6 +28,6 @@ public class GaugeProbe implements MeterBinder {
         log.log(Level.INFO, "Setting up probe {0}", probe.getName());
 
         JdbcQuery query = new JdbcQuery(probe.getUrl(), probe.getUser(), probe.getPassword(), probe.getQuery());
-        Gauge.builder(probe.getName(), query::get).register(meterRegistry);
+        Gauge.builder(probe.getName(), query::getAsDouble).register(meterRegistry);
     }
 }
