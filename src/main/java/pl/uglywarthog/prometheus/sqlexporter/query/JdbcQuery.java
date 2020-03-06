@@ -24,8 +24,9 @@ public class JdbcQuery implements Supplier<Double> {
     public Double get() {
         log.log(Level.INFO, "Evaluating probe {0}", query);
         try (Connection connection = getConnection();
-             Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(query);
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query);
+        ) {
             if (resultSet.next()) {
                 return resultSet.getDouble(1);
             }
