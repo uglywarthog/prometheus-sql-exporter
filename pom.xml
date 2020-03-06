@@ -21,7 +21,7 @@
         <sonar.projectKey>sql-exporter-dev</sonar.projectKey>
         <sonar.organization>uglywarthog</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.login>c49c9669ae3fa9d5c6e238c43f518a6a2e8b1054</sonar.login>
+        <sonar.login>eb112aa9312be4690b29e7768a0cbf8759dbadb2</sonar.login>
     </properties>
 
     <dependencies>
