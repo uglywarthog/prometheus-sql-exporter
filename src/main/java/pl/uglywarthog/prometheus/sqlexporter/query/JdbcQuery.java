@@ -4,12 +4,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 
 import java.sql.*;
+import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 import java.util.logging.Level;
 
 @RequiredArgsConstructor
 @Log
-public class JdbcQuery implements Supplier<Double> {
+public class JdbcQuery implements DoubleSupplier {
 
     private final String url;
     private final String username;
@@ -21,7 +22,7 @@ public class JdbcQuery implements Supplier<Double> {
     }
 
     @Override
-    public Double get() {
+    public double getAsDouble() {
         log.log(Level.INFO, "Evaluating probe {0}", query);
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement();
@@ -35,6 +36,7 @@ public class JdbcQuery implements Supplier<Double> {
         }
 
         // In case of error return null which will be reported as NaN
-        return null;
+        throw new RuntimeException("No value");
     }
+
 }
