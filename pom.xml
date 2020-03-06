@@ -18,9 +18,11 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <sonar.projectKey>uglywarthog_prometheus-sql-exporter</sonar.projectKey>
+        <sonar.projectName>sql-exporter</sonar.projectName>
+        <sonar.projectKey>sql-exporter</sonar.projectKey>
         <sonar.organization>uglywarthog</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.login>eb112aa9312be4690b29e7768a0cbf8759dbadb2</sonar.login>
     </properties>
 
     <dependencies>
